@@ -48,29 +48,17 @@ const commands = [
                 const response = await fetch(apiUrl, {
                     method: 'GET',
                     headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Accept-Language': 'en-US,en;q=0.9',
-                        'Accept-Encoding': 'gzip, deflate, br, zstd',
-                        'Connection': 'keep-alive',
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-                        'Referer': 'https://tracker.gg/',
-                        'Origin': 'https://tracker.gg',
-                        'Sec-Fetch-Dest': 'empty',
-                        'Sec-Fetch-Mode': 'cors',
-                        'Sec-Fetch-Site': 'same-site',
+                        'accept': 'application/json, text/plain, */*',
+                        'accept-language': 'en-US,en;q=0.9',
+                        'priority': 'u=1, i',
+                        'referer': 'https://tracker.gg/',
                         'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
                         'sec-ch-ua-mobile': '?0',
                         'sec-ch-ua-platform': '"Windows"',
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache',
-                        'X-ProxyUser-Ip': '127.0.0.1',
-                        'Client-IP': '127.0.0.1',
-                        'Host': 'api.tracker.gg',
-                        'X-Originating-IP': '127.0.0.1',
-                        'X-Forwarded-For': '127.0.0.1',
-                        'X-Remote-IP': '127.0.0.1',
-                        'X-Remote-Addr': '127.0.0.1',
-                        'X-Real-IP': '127.0.0.1'
+                        'sec-fetch-dest': 'empty',
+                        'sec-fetch-mode': 'cors',
+                        'sec-fetch-site': 'same-site',
+                        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
                     }
                 });
 
