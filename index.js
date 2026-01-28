@@ -35,7 +35,8 @@ const commands = [
                     .setDescription('Enter player username')
                     .setRequired(true)),
         execute: async (interaction) => {
-            await interaction.deferReply();
+            // Reply immediately to avoid timeout
+            await interaction.reply('🔍 Fetching player stats...');
 
             const platform = interaction.options.getString('platform');
             const username = interaction.options.getString('username');
