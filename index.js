@@ -60,7 +60,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
     try {
         console.log('Refreshing slash commands...');
         await rest.put(
-            Routes.applicationCommands(process.env.CLIENT_ID), // your bot client ID
+            Routes.applicationCommands("1465870253715099790"), // your bot client ID
             { body: commands.map(cmd => cmd.data.toJSON()) }
         );
         console.log('Slash commands registered!');
@@ -112,3 +112,4 @@ client.on('interactionCreate', async interaction => {
 // Login
 // --------------------
 client.login(process.env.DISCORD_TOKEN);
+
