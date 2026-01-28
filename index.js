@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder, Collection } = require('discord.js');
+const http = require('http');
 
 const client = new Client({
     intents: [
@@ -56,6 +57,7 @@ commands.forEach(cmd => client.commands.set(cmd.data.name, cmd));
 // Register Slash Commands
 // --------------------
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+
 (async () => {
     try {
         console.log('Refreshing slash commands...');
@@ -80,13 +82,14 @@ client.once('ready', () => {
 // Prefix Command Listener
 // --------------------
 const prefix = '!';
+
 client.on('messageCreate', message => {
     if (message.author.bot) return;
     if (!message.content.startsWith(prefix)) return;
-
+    
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
-
+    
     const command = client.commands.find(cmd => cmd.prefix === commandName);
     if (command) command.execute(message);
 });
@@ -96,10 +99,10 @@ client.on('messageCreate', message => {
 // --------------------
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
-
+    
     const command = client.commands.get(interaction.commandName);
     if (!command) return;
-
+    
     try {
         await command.execute(interaction);
     } catch (error) {
@@ -109,7 +112,25 @@ client.on('interactionCreate', async interaction => {
 });
 
 // --------------------
+// Health Check Server (for Render)
+// --------------------
+const PORT = process.env.PORT || 3000;
+
+const server = http.createServer((req, res) => {
+    if (req.url === '/health' || req.url === '/') {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Bot is running!');
+    } else {
+        res.writeHead(404);
+        res.end('Not found');
+    }
+});
+
+server.listen(PORT, () => {
+    console.log(`Health check server running on port ${PORT}`);
+});
+
+// --------------------
 // Login
 // --------------------
 client.login(process.env.DISCORD_TOKEN);
-
