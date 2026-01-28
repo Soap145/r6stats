@@ -58,7 +58,29 @@ const commands = [
                         'sec-fetch-dest': 'empty',
                         'sec-fetch-mode': 'cors',
                         'sec-fetch-site': 'same-site',
-                        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+                        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+                        'Client-IP': '127.0.0.1',
+                        'Forwarded-For-Ip': '127.0.0.1',
+                        'Forwarded-For': '127.0.0.1',
+                        'Forwarded': '127.0.0.1',
+                        'True-Client-IP': '127.0.0.1',
+                        'X-Client-IP': '127.0.0.1',
+                        'X-Custom-IP-Authorization': '127.0.0.1',
+                        'X-Forward-For': '127.0.0.1',
+                        'X-Forward': '127.0.0.1',
+                        'X-Forwarded-By': '127.0.0.1',
+                        'X-Forwarded-For-Original': '127.0.0.1',
+                        'X-Forwarded-For': '127.0.0.1',
+                        'X-Forwarded-Server': '127.0.0.1',
+                        'X-Forwarded': '127.0.0.1',
+                        'X-Forwared-Host': '127.0.0.1',
+                        'X-Host': '127.0.0.1',
+                        'X-HTTP-Host-Override': '127.0.0.1',
+                        'X-Originating-IP': '127.0.0.1',
+                        'X-Real-IP': '127.0.0.1',
+                        'X-Remote-Addr': '127.0.0.1',
+                        'X-Remote-IP': '127.0.0.1',
+                        'CF-Connecting-IP': '127.0.0.1'
                     }
                 });
 
