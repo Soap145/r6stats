@@ -42,18 +42,20 @@ const commands = [
 
             try {
                 // Fetch data from Tracker.gg API
-                const response = await fetch(`https://api.tracker.gg/api/v2/r6siege/standard/profile/${platform}/${encodeURIComponent(username)}`, {
+                const apiUrl = `https://api.tracker.gg/api/v2/r6siege/standard/profile/${platform}/${encodeURIComponent(username)}`;
+                
+                const response = await fetch(apiUrl, {
                     headers: {
-                        'Accept': 'application/json',
-                        'User-Agent': 'Mozilla/5.0'
+                        'TRN-Api-Key': process.env.TRN_API_KEY,
+                        'Accept': 'application/json'
                     }
                 });
 
                 if (!response.ok) {
                     if (response.status === 404) {
-                        return await interaction.editReply('❌ Player not found! Please check the username and platform.');
+                        return await interaction.editReply(`❌ Player not found! Please check the username and platform.\n\n**Debug URL:** ${apiUrl}`);
                     }
-                    return await interaction.editReply('❌ Failed to fetch player stats. Please try again later.');
+                    return await interaction.editReply(`❌ Failed to fetch player stats (Status: ${response.status})\n\n**Debug URL:** ${apiUrl}\n**API Key Set:** ${process.env.TRN_API_KEY ? 'Yes' : 'No'}`);
                 }
 
                 const data = await response.json();
@@ -130,7 +132,8 @@ const commands = [
 
             } catch (error) {
                 console.error('Error fetching stats:', error);
-                await interaction.editReply('❌ An error occurred while fetching player stats. Please try again.');
+                const apiUrl = `https://api.tracker.gg/api/v2/r6siege/standard/profile/${platform}/${encodeURIComponent(username)}`;
+                await interaction.editReply(`❌ An error occurred while fetching player stats.\n\n**Debug URL:** ${apiUrl}\n**Error:** ${error.message}\n**API Key Set:** ${process.env.TRN_API_KEY ? 'Yes' : 'No'}`);
             }
         }
     }
