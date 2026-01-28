@@ -62,7 +62,15 @@ const commands = [
                         'sec-ch-ua-mobile': '?0',
                         'sec-ch-ua-platform': '"Windows"',
                         'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache'
+                        'Pragma': 'no-cache',
+                        'X-ProxyUser-Ip': '127.0.0.1',
+                        'Client-IP': '127.0.0.1',
+                        'Host': 'api.tracker.gg',
+                        'X-Originating-IP': '127.0.0.1',
+                        'X-Forwarded-For': '127.0.0.1',
+                        'X-Remote-IP': '127.0.0.1',
+                        'X-Remote-Addr': '127.0.0.1',
+                        'X-Real-IP': '127.0.0.1'
                     }
                 });
 
