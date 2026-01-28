@@ -58,16 +58,31 @@ commands.forEach(cmd => client.commands.set(cmd.data.name, cmd));
 // --------------------
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
+// For testing: Register to a specific guild (instant updates)
+// For production: Use applicationCommands route (takes up to 1 hour)
+const GUILD_ID = process.env.GUILD_ID; // Add your server ID to .env
+
 (async () => {
     try {
         console.log('Refreshing slash commands...');
-        await rest.put(
-            Routes.applicationCommands("1465870253715099790"), // your bot client ID
-            { body: commands.map(cmd => cmd.data.toJSON()) }
-        );
-        console.log('Slash commands registered!');
+        
+        if (GUILD_ID) {
+            // Guild-specific (instant, for testing)
+            await rest.put(
+                Routes.applicationGuildCommands("1465870253715099790", GUILD_ID),
+                { body: commands.map(cmd => cmd.data.toJSON()) }
+            );
+            console.log(`Slash commands registered to guild ${GUILD_ID}!`);
+        } else {
+            // Global (takes up to 1 hour)
+            await rest.put(
+                Routes.applicationCommands("1465870253715099790"),
+                { body: commands.map(cmd => cmd.data.toJSON()) }
+            );
+            console.log('Global slash commands registered! (may take up to 1 hour to appear)');
+        }
     } catch (error) {
-        console.error(error);
+        console.error('Error registering commands:', error);
     }
 })();
 
@@ -76,6 +91,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 // --------------------
 client.once('ready', () => {
     console.log(`✅ Logged in as ${client.user.tag}`);
+    console.log(`Bot is in ${client.guilds.cache.size} guilds`);
 });
 
 // --------------------
