@@ -48,10 +48,6 @@ const commands = [
                 const response = await fetch(apiUrl, {
                     method: 'GET',
                     headers: {
-                        ':authority': 'api.tracker.gg',
-                        ':method': 'GET',
-                        ':path': `/api/v2/r6siege/standard/profile/${platform}/${encodeURIComponent(username)}`,
-                        ':scheme': 'https',
                         'accept': 'application/json, text/plain, */*',
                         'accept-encoding': 'gzip, deflate, br, zstd',
                         'accept-language': 'en-US,en;q=0.9',
