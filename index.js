@@ -52,7 +52,7 @@ const commands = [
                         'accept-encoding': 'gzip, deflate, br, zstd',
                         'accept-language': 'en-US,en;q=0.9',
                         'cache-control': 'no-cache',
-                        'cookie': '_cfb=02DiufOAkRzD1P1mdm7CzyRFvez6PaUVaLGT9uhyanqi; cf_bm=4XZTA7eJQW3ELTll0jpuW9u7bWHOQ8z7aduvEPwhsE-1769730928-1.0.1.1-i81d3Mh8RxBqjG5cxzd2qrYHp5jTIUADHsJFQIB9bZAI0Y0wI2kEQYlXWHxan02hbeIaBH0G3qQUMa2eo6BGKd4rQy30XIAxB1RU MLq0YWThio2Yat3FMoIuI',
+                        'cookie': 'cf_clearance=FCMKgdLmXh3sWEkelzuTlXdo985zCQdhH6h.5adFNos-1769401263-1.2.1.1-bAyhEcYxuOKBJ_wrwMPVCuLoGvCik9QTVa_KNVUtCGxEq34DXzMKMI8xJcagXzh3S4GWhQPdONoUmIe.oCfRkBY4QrH3Vk_PWd7rBE0AgHnH62frz8J.mW.vmw2XnvnwSswQB3wrpo7Z6ebnX2Gu7dLUtJENF4_lSorPZyMdEjDCUTmPGpCjwBtEP1G9KohESTqm0MiCGuFhQfqnorY5LngjfGibnnzKuvJOC77OsuA; __cf_bm=vDnh5xrAXFxWJRcloa87nG_Vco5ZctbB2u1qEbrB948-1769732328-1.0.1.1-Ng7qlW8dP.nCiDehWwmNpV9.0IdbRjFJJ79yeYr8_FWNIO4fZA7skQe9pe_ULLDoOuK9s75iAsZZTsj2Z8AciDBT16H5Pd6cf7CmYP8gz68TpBGOxShJods_Ba5TGmzp; __cflb=02DiuFQAkRrzD1P1mdm7CzyRFveZ6PaUWsYerqNirfYfn',
                         'origin': 'https://r6.tracker.network',
                         'pragma': 'no-cache',
                         'priority': 'u=1, i',
@@ -247,3 +247,4 @@ server.listen(PORT, () => {
 // Login
 // --------------------
 client.login(process.env.DISCORD_TOKEN);
+
