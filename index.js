@@ -48,39 +48,27 @@ const commands = [
                 const response = await fetch(apiUrl, {
                     method: 'GET',
                     headers: {
+                        ':authority': 'api.tracker.gg',
+                        ':method': 'GET',
+                        ':path': `/api/v2/r6siege/standard/profile/${platform}/${encodeURIComponent(username)}`,
+                        ':scheme': 'https',
                         'accept': 'application/json, text/plain, */*',
+                        'accept-encoding': 'gzip, deflate, br, zstd',
                         'accept-language': 'en-US,en;q=0.9',
+                        'cache-control': 'no-cache',
+                        'cookie': '_cfb=02DiufOAkRzD1P1mdm7CzyRFvez6PaUVaLGT9uhyanqi; cf_bm=4XZTA7eJQW3ELTll0jpuW9u7bWHOQ8z7aduvEPwhsE-1769730928-1.0.1.1-i81d3Mh8RxBqjG5cxzd2qrYHp5jTIUADHsJFQIB9bZAI0Y0wI2kEQYlXWHxan02hbeIaBH0G3qQUMa2eo6BGKd4rQy30XIAxB1RU MLq0YWThio2Yat3FMoIuI',
+                        'origin': 'https://r6.tracker.network',
+                        'pragma': 'no-cache',
                         'priority': 'u=1, i',
-                        'referer': 'https://tracker.gg/',
-                        'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+                        'referer': 'https://r6.tracker.network/',
+                        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="144", "Brave";v="144"',
                         'sec-ch-ua-mobile': '?0',
                         'sec-ch-ua-platform': '"Windows"',
                         'sec-fetch-dest': 'empty',
                         'sec-fetch-mode': 'cors',
-                        'sec-fetch-site': 'same-site',
-                        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-                        'Client-IP': '127.0.0.1',
-                        'Forwarded-For-Ip': '127.0.0.1',
-                        'Forwarded-For': '127.0.0.1',
-                        'Forwarded': '127.0.0.1',
-                        'True-Client-IP': '127.0.0.1',
-                        'X-Client-IP': '127.0.0.1',
-                        'X-Custom-IP-Authorization': '127.0.0.1',
-                        'X-Forward-For': '127.0.0.1',
-                        'X-Forward': '127.0.0.1',
-                        'X-Forwarded-By': '127.0.0.1',
-                        'X-Forwarded-For-Original': '127.0.0.1',
-                        'X-Forwarded-For': '127.0.0.1',
-                        'X-Forwarded-Server': '127.0.0.1',
-                        'X-Forwarded': '127.0.0.1',
-                        'X-Forwared-Host': '127.0.0.1',
-                        'X-Host': '127.0.0.1',
-                        'X-HTTP-Host-Override': '127.0.0.1',
-                        'X-Originating-IP': '127.0.0.1',
-                        'X-Real-IP': '127.0.0.1',
-                        'X-Remote-Addr': '127.0.0.1',
-                        'X-Remote-IP': '127.0.0.1',
-                        'CF-Connecting-IP': '127.0.0.1'
+                        'sec-fetch-site': 'cross-site',
+                        'sec-gpc': '1',
+                        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36'
                     }
                 });
 
@@ -88,7 +76,7 @@ const commands = [
                     if (response.status === 404) {
                         return await interaction.editReply(`❌ Player not found! Please check the username and platform.\n\n**Debug URL:** ${apiUrl}`);
                     }
-                    return await interaction.editReply(`❌ Failed to fetch player stats (Status: ${response.status})\n\n**Debug URL:** ${apiUrl}\n**API Key Set:** ${process.env.TRN_API_KEY ? 'Yes' : 'No'}`);
+                    return await interaction.editReply(`❌ Failed to fetch player stats (Status: ${response.status})\n\n**Debug URL:** ${apiUrl}`);
                 }
 
                 const data = await response.json();
@@ -161,12 +149,12 @@ const commands = [
                     );
                 }
 
-                await interaction.editReply({ embeds: [embed] });
+                await interaction.editReply({ content: '', embeds: [embed] });
 
             } catch (error) {
                 console.error('Error fetching stats:', error);
                 const apiUrl = `https://api.tracker.gg/api/v2/r6siege/standard/profile/${platform}/${encodeURIComponent(username)}`;
-                await interaction.editReply(`❌ An error occurred while fetching player stats.\n\n**Debug URL:** ${apiUrl}\n**Error:** ${error.message}\n**API Key Set:** ${process.env.TRN_API_KEY ? 'Yes' : 'No'}`);
+                await interaction.editReply(`❌ An error occurred while fetching player stats.\n\n**Debug URL:** ${apiUrl}\n**Error:** ${error.message}`);
             }
         }
     }
