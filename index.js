@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder, Collection, EmbedBuilder } = require('discord.js');
 const http = require('http');
+const axios = require('axios');
 
 const client = new Client({
     intents: [
@@ -45,8 +46,7 @@ const commands = [
                 // Fetch data from Tracker.gg API
                 const apiUrl = `https://api.tracker.gg/api/v2/r6siege/standard/profile/${platform}/${encodeURIComponent(username)}`;
                 
-                const response = await fetch(apiUrl, {
-                    method: 'GET',
+                const response = await axios.get(apiUrl, {
                     headers: {
                         'accept': 'application/json, text/plain, */*',
                         'accept-encoding': 'gzip, deflate, br, zstd',
@@ -65,17 +65,23 @@ const commands = [
                         'sec-fetch-site': 'cross-site',
                         'sec-gpc': '1',
                         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36'
+                    },
+                    validateStatus: function (status) {
+                        return status < 500; // Don't throw on 4xx errors
                     }
                 });
 
-                if (!response.ok) {
+                if (response.status !== 200) {
                     if (response.status === 404) {
                         return await interaction.editReply(`❌ Player not found! Please check the username and platform.\n\n**Debug URL:** ${apiUrl}`);
+                    }
+                    if (response.status === 403) {
+                        return await interaction.editReply(`❌ Access denied by Tracker.gg (403). Cookie may have expired.\n\n**Debug URL:** ${apiUrl}`);
                     }
                     return await interaction.editReply(`❌ Failed to fetch player stats (Status: ${response.status})\n\n**Debug URL:** ${apiUrl}`);
                 }
 
-                const data = await response.json();
+                const data = response.data;
 
                 // Extract player info
                 const playerName = data.data.platformInfo.platformUserHandle;
